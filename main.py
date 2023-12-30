@@ -19,7 +19,30 @@ def display_message(email_rev_share_current):
         st.info("Email Revenue share should be around 30%. You are likely facing either over-attribution of revenue or a lack of performance at the top of your funnel. Reach out to us for a more detailed audit.")
 
 def main():
-    st.title("Performance Contract Simulation")
+    # Custom CSS to style the Streamlit app
+    st.markdown("""
+        <style>
+            .css-2trqyj {
+                flex-direction: column;
+                align-items: center;
+            }
+            .stTextInput, .stNumberInput {
+                width: 200px;  /* Smaller width for input fields */
+            }
+            h1, h2, h3, h4, h5, h6 {
+                text-align: center;
+                font-size: 1.5em;  /* Larger font size for titles */
+            }
+            .css-145kmo2 {
+                font-size: 1.2em;  /* Larger font size for input fields */
+            }
+            .stButton > button {
+                width: 200px;  /* Smaller width for buttons */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.title("Results Calculator")
 
     total_revenue = st.number_input("Total Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
     email_revenue = st.number_input("Email Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
