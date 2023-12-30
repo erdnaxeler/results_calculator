@@ -18,28 +18,46 @@ def display_message(email_rev_share_current):
     elif email_rev_share_current > 0.35:
         st.info("Email Revenue share should be around 30%. You are likely facing either over-attribution of revenue or a lack of performance at the top of your funnel. Reach out to us for a more detailed audit.")
 
+
 def main():
     # Inject custom CSS for centering and styling
     st.markdown("""
         <style>
-            .css-2trqyj {  /* Main container */
+            .main .block-container {
+                display: flex;
+                flex-direction: column;
                 align-items: center;
+                justify-content: center;
             }
-            .stTextInput > div > div > input, .stNumberInput > div > div > input {
+            .stNumberInput, .stButton, .stAlert, .stMarkdown {
+                width: 100%;
+                margin: 0 auto;
+            }
+            .stNumberInput > div > div > input {
                 font-size: 20px !important;
-                width: 200px !important;  /* Width of input fields */
-            }
-            h1, h2, h3, h4, h5, h6 {
-                text-align: center !important;
-                font-size: 30px !important;
+                text-align: right;  /* For number input */
             }
             .stButton > button {
                 display: block;
+                width: 200px;
                 margin: 10px auto;  /* Center-align buttons */
-                width: 200px !important;
             }
-            div[data-testid="stMarkdownContainer"] {
+            h1 {
                 text-align: center !important;
+                font-size: 2.5rem !important;
+            }
+            h2, h3, h4, h5, h6 {
+                text-align: center !important;
+                font-size: 2rem !important;
+            }
+            .css-1syf3y0 {
+                width: 100% !important;
+                padding: 0 !important;
+            }
+            .stTextInput > div > div > input, .stNumberInput > div > div > input {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
             }
         </style>
     """, unsafe_allow_html=True)
