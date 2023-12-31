@@ -20,62 +20,45 @@ def display_message(email_rev_share_current):
 
 
 def main():
-    # Inject custom CSS for centering and styling
+    # Inject custom CSS for the color scheme and styling
     st.markdown("""
         <style>
-            .main .block-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
+            body {
+                color: #000000;  /* Regular text color */
             }
-            .stNumberInput, .stButton, .stAlert, .stMarkdown {
-                width: 100%;
-                margin: 0 auto;
-            }
-            .stNumberInput > div > div > input {
-                font-size: 20px !important;
-                text-align: right;  /* For number input */
+            h1, h2, h3, h4, h5, h6 {
+                color: #072E60;  /* Titles and important text color */
             }
             .stButton > button {
-                display: block;
-                width: 200px;
-                margin: 10px auto;  /* Center-align buttons */
+                color: white;
+                background-color: #6BB33B;  /* Button color */
+                border: none;
+                border-radius: 4px;
+                padding: 10px 24px;
+                font-size: 16px;
+                line-height: 1.5;
             }
-            h1 {
-                text-align: center !important;
-                font-size: 2.5rem !important;
-            }
-            h2, h3, h4, h5, h6 {
-                text-align: center !important;
-                font-size: 2rem !important;
+            .stButton > button:hover {
+                background-color: #5da331;  /* Button hover color */
             }
             .css-1syf3y0 {
                 width: 100% !important;
                 padding: 0 !important;
             }
-            .stTextInput > div > div > input, .stNumberInput > div > div > input {
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
+            /* Additional custom styles */
         </style>
     """, unsafe_allow_html=True)
 
     st.title("Performance Contract Simulation")
 
-    # Centered elements using a single column
-    total_revenue = st.number_input("Total Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
-    email_revenue = st.number_input("Email Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
+    # ... [your Streamlit app's main code]
 
     if st.button("Calculate"):
-        with st.spinner("Hang on while we compile your data..."):
-            time.sleep(5)  # Simulating data processing time
-            email_rev_share_current, monthly_missed_revenue = calculate_metrics(total_revenue, email_revenue)
-            st.metric(label="Email Revenue Share - Current Level", value=f"{email_rev_share_current:.2%}")
-            if monthly_missed_revenue is not None:
-                st.metric(label="Email Revenue - Monthly Missed Revenue", value=f"${monthly_missed_revenue:,.2f} USD")
-            display_message(email_rev_share_current)
+        # ... [calculations and displaying results]
+
+        # Add a button for scheduling an audit
+        cal_link = "https://calendly.com/your-link"  # Replace with your actual Calendly link
+        st.markdown(f'<a href="{cal_link}" target="_blank"><button class="calendly-button">Schedule an Audit Here</button></a>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
