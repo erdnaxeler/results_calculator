@@ -12,22 +12,21 @@ def calculate_metrics(total_revenue, email_revenue):
 
 def display_message(email_rev_share_current):
     if email_rev_share_current < 0.25:
-        st.info("Email Revenue share should be around 30%. You are most likely missing some key components in your email strategy. Reach out to us and ask for an audit and a detailed action plan to capture all the missed revenue in 90 days.")
+        st.markdown("<p style='color:#000000;'>Email Revenue share should be around 30%. You are most likely missing some key components in your email strategy. Reach out to us and ask for an audit and a detailed action plan to capture all the missed revenue in 90 days.</p>", unsafe_allow_html=True)
     elif 0.25 <= email_rev_share_current <= 0.35:
-        st.info("Email Revenue share should be around 30%. It looks like you are in a good spot. Reach out to us for an audit if you fear that the revenue your email provider gives you is overestimated.")
+        st.markdown("<p style='color:#000000;'>Email Revenue share should be around 30%. It looks like you are in a good spot. Reach out to us for an audit if you fear that the revenue your email provider gives you is overestimated.</p>", unsafe_allow_html=True)
     elif email_rev_share_current > 0.35:
-        st.info("Email Revenue share should be around 30%. You are likely facing either over-attribution of revenue or a lack of performance at the top of your funnel. Reach out to us for a more detailed audit.")
-
+        st.markdown("<p style='color:#000000;'>Email Revenue share should be around 30%. You are likely facing either an over-attribution of revenue or a lack of performance at the top of your funnel. Reach out to us for a more detailed audit.</p>", unsafe_allow_html=True)
 
 def main():
     # Inject custom CSS for the color scheme and styling
     st.markdown("""
         <style>
-            body {
-                color: #000000;  /* Regular text color */
+            .st-bb {
+                border-top: none;
             }
-            h1, h2, h3, h4, h5, h6 {
-                color: #072E60;  /* Titles and important text color */
+            .st-at {
+                background-color: #FFF;
             }
             .stButton > button {
                 color: white;
@@ -41,24 +40,41 @@ def main():
             .stButton > button:hover {
                 background-color: #5da331;  /* Button hover color */
             }
+            h1 {
+                color: #072E60;  /*  color */
+                text-align: center;
+                font-size: 2.5rem !important;
+            }
+            .stNumberInput > div > div > input {
+                font-size: 20px !important;
+                color: #000000;  /* Input text color */
+            }
             .css-1syf3y0 {
-                width: 100% !important;
                 padding: 0 !important;
             }
-            /* Additional custom styles */
+            .stTextInput > div > div > input, .stNumberInput > div > div > input {
+                text-align: center;
+            }
         </style>
     """, unsafe_allow_html=True)
 
-    st.title("Performance Contract Simulation")
+    st.title("Results calculator")
 
-    # ... [your Streamlit app's main code]
+    # Centered elements using a single column
+    total_revenue = st.number_input("Total Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
+    email_revenue = st.number_input("Email Revenue (USD)", min_value=0.0, format='%f', step=1000.0)
 
     if st.button("Calculate"):
-        # ... [calculations and displaying results]
+        with st.spinner("Hang on while we compile your data..."):
+            time.sleep(4)  # Simulating data processing time
+            email_rev_share_current, monthly_missed_revenue = calculate_metrics(total_revenue, email_revenue)
+            st.metric(label="Email Revenue Share - Current Level", value=f"{email_rev_share_current:.2%}")
+            if monthly_missed_revenue is not None:
+                st.metric(label="Email Revenue - Monthly Missed Revenue", value=f"${monthly_missed_revenue:,.2f} USD")
+            display_message(email_rev_share_current)
 
         # Add a button for scheduling an audit
-        cal_link = "https://calendly.com/your-link"  # Replace with your actual Calendly link
-        st.markdown(f'<a href="{cal_link}" target="_blank"><button class="calendly-button">Schedule an Audit Here</button></a>', unsafe_allow_html=True)
+        st.markdown("<a href='https://calendly.com/alexmoulartmarketing/30min' target='_blank'><button class='calendly-button'>Schedule an Audit Here</button></a>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
